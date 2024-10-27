@@ -21,9 +21,9 @@ class Phone(Field):
     
     """ініціалізуємо телефон з переввіркою на 10-значний номер"""
     def __init__(self, value):
-        if not value.isdigit() and len(value) == 10:
+        if not value.isdigit() and len(value) != 10:
             raise ValueError ("Invalid phone number. Must contain exactly 10 digits")
-        self.value = value
+        super().__init__(value) #викликає конструктор Field для збереження значенння
 
 """клас Record для обробки інформаціі про окремий контакт"""
 class Record:
