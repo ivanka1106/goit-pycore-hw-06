@@ -1,26 +1,31 @@
 from collections import UserDict
 
+""" базовий клас Field для обробки загальних фукцій полів"""
 class Field:
     def __init__(self, value):
         self.value = value
 
-    # Перетворюємо значення поля на рядкове представлення 
     def __str__(self):
+        """ 
+        Перетворюємо значення поля на рядкове представлення 
+        """
         return str(self.value)
 
-# клас Name успадковвує Field, представляє ім'я контакту 
+  
+""" клас Name успадковвує Field, представляє ім'я контакту """
 class Name(Field):
     pass
 
-# клас Phone успадковвує Field, представляє номер телефону контакту
+""" клас Phone успадковвує Field, представляє номер телефону контакту"""
 class Phone(Field):
-    #ініціалізуємо телефон з переввіркою на 10-значний номер
-     def __init__(self, value):
+    
+    """ініціалізуємо телефон з переввіркою на 10-значний номер"""
+    def __init__(self, value):
         if not value.isdigit() and len(value) == 10:
             raise ValueError ("Invalid phone number. Must contain exactly 10 digits")
         self.value = value
 
-# клас Record для обробки інформаціі про окремий контакт
+"""клас Record для обробки інформаціі про окремий контакт"""
 class Record:
     def __init__(self, name):
         self.name = Name(name)
@@ -45,7 +50,7 @@ class Record:
                 return phone
         return None
 
-    def __str__(self):
+    def __str__(self): # рядкове предсталення телефону 
         return f"Contact name: {self.name.value}, phones: {', '.join(p.value for p in self.phones)}"
 
 # клас AddressBook успадковує UserDict, є колекцією записів
@@ -63,8 +68,6 @@ class AddressBook(UserDict):
         else:
             raise ValueError("Record not found")
     
-    
-        
 # Створення нової адресної книги
 book = AddressBook()
 
@@ -98,5 +101,7 @@ print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
 # Видалення запису Jane
 book.delete("Jane")
 
+    
+    
     
     
